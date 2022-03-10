@@ -5,15 +5,19 @@ for (var i = 0; i < numberOfDrums; i++) {
     document.querySelectorAll(".drum")[i].addEventListener("click", function () {
         var buttonInnerHTML = this.textContent
 
-        makeSound(buttonInnerHTML)
-
-
+        makeSound(buttonInnerHTML);
+        
+        //when the letter is clicked with the mouse, it will trigger the buttonAnimation Function 
+        buttonAnimation(buttonInnerHTML);
     });
 }
 
 // Detects Keyboard Press
 document.addEventListener("keydown", function (event) {
-    makeSound(event.key)
+    makeSound(event.key);
+
+    //when the letter is pressed by the keyboard, it will trigger the buttonAnimation Function
+    buttonAnimation(event.key);
 })
 
 function makeSound(key) {
@@ -59,4 +63,19 @@ function makeSound(key) {
         default: console.log(buttonInnerHTML);
 
     }
+}
+
+
+
+function buttonAnimation(currentKey) {
+    // "." + current key: is the class "letter" located in the HTML. ex. = ".w" will now = activeButton 
+    var activeButton = document.querySelector("." + currentKey);
+
+    // adds the "pressed" class located in the CSS to the activeButton
+    activeButton.classList.add("pressed");
+
+    // "setTimeout" will remove the "pressed" class after 100ms so the animation can be reset
+    setTimeout(function (){
+        activeButton.classList.remove("pressed");
+    }, 100);
 }
